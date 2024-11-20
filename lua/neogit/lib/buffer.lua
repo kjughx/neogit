@@ -16,6 +16,7 @@ local Path = require("plenary.path")
 ---@field ui Ui
 ---@field kind string
 ---@field name string
+---@field options table
 local Buffer = {
   kind = "split",
 }
@@ -34,6 +35,10 @@ function Buffer:new(handle, win_handle)
     name = nil,
     namespaces = {
       default = api.nvim_create_namespace("neogit-buffer-" .. handle),
+    },
+    options = {
+      buf = {},
+      win = {},
     },
   }
 
@@ -404,13 +409,15 @@ end
 
 function Buffer:set_buffer_option(name, value)
   if self.handle ~= nil then
-    api.nvim_set_option_value(name, value, { buf = self.handle })
+    self.options.buf[name] = value
+    api.nvim_set_option_value(name, value, { scope = "local" })
   end
 end
 
 function Buffer:set_window_option(name, value)
   if self.win_handle ~= nil then
-    api.nvim_set_option_value(name, value, { win = self.win_handle })
+    self.options.win[name] = value
+    api.nvim_set_option_value(name, value, { scope = "local", win = self.win_handle })
   end
 end
 
@@ -558,6 +565,17 @@ end
 
 function Buffer:line_count()
   return api.nvim_buf_line_count(self.handle)
+end
+
+function Buffer:restore_options()
+  for name, _ in pairs(self.options.win) do
+    local value = api.nvim_get_option_value(name, { scope = "global" })
+    api.nvim_set_option_value(name, value, { win = self.win_handle })
+  end
+  for name, _ in pairs(self.options.buf) do
+    local value = api.nvim_get_option_value(name, { scope = "global" })
+    api.nvim_set_option_value(name, value, { buf = self.handle })
+  end
 end
 
 ---@param text string
@@ -735,6 +753,13 @@ function Buffer.create(config)
     buffer:set_window_option("foldmethod", "manual")
     -- TODO: Need to find a way to turn this off properly when unloading plugin
     -- buffer:set_window_option("winfixbuf", true)
+
+    api.nvim_buf_attach(buffer.handle, false, {
+      on_detach = function()
+        logger.debug("[BUFFER:" .. buffer.handle .. "] Restoring options")
+        pcall(buffer.restore_options)
+      end,
+    })
   end
 
   if config.render then

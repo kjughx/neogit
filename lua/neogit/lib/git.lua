@@ -2,6 +2,7 @@
 ---@field repo        NeogitRepo
 ---@field bisect      NeogitGitBisect
 ---@field branch      NeogitGitBranch
+---@field checkout    NeogitGitCheckout
 ---@field cherry      NeogitGitCherry
 ---@field cherry_pick NeogitGitCherryPick
 ---@field cli         NeogitGitCLI

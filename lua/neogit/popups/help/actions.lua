@@ -107,6 +107,9 @@ M.popups = function(env)
       p(env.stash)
     end) },
     { "Command", "Command", require("neogit.buffers.status.actions").n_command(nil) },
+    { "CheckoutPopup", "Checkout", popups.open("checkout", function(p)
+      p(env.commit)
+    end) }
   }
 
   return present(items)

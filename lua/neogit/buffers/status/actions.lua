@@ -1174,6 +1174,13 @@ M.n_vertical_split_open = function(self)
 end
 
 ---@param self StatusBuffer
+M.n_checkout_popup = function(self)
+  return popups.open("checkout", function(p)
+    p { commits = { self.buffer.ui:get_commit_under_cursor() } }
+  end)
+end
+
+---@param self StatusBuffer
 M.n_branch_popup = function(self)
   return popups.open("branch", function(p)
     p { commits = { self.buffer.ui:get_commit_under_cursor() } }

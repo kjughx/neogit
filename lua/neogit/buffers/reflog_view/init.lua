@@ -58,6 +58,9 @@ function M:open(_)
     context_highlight = true,
     mappings = {
       v = {
+        [popups.mapping_for("Checkout")] = popups.open("checkout", function(p)
+          p { commits = self.buffer.ui:get_commits_in_selection() }
+        end),
         [popups.mapping_for("CherryPickPopup")] = popups.open("cherry_pick", function(p)
           p { commits = self.buffer.ui:get_commits_in_selection() }
         end),

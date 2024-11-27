@@ -231,6 +231,7 @@ end
 ---| "RemotePopup"
 ---| "TagPopup"
 ---| "WorktreePopup"
+---| "CheckoutPopup"
 ---| false
 
 ---@alias NeogitConfigMappingsRebaseEditor
@@ -592,6 +593,7 @@ function M.get_default_values()
         ["p"] = "PullPopup",
         ["r"] = "RebasePopup",
         ["v"] = "RevertPopup",
+        ["C"] = "CheckoutPopup",
       },
       status = {
         ["j"] = "MoveDown",

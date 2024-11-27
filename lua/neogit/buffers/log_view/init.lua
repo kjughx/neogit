@@ -129,6 +129,9 @@ function M:open()
         [popups.mapping_for("BisectPopup")] = popups.open("bisect", function(p)
           p { commits = { self.buffer.ui:get_commit_under_cursor() } }
         end),
+        [popups.mapping_for("CheckoutPopup")] = popups.open("checkout", function(p)
+          p { commit = self.buffer.ui:get_commit_under_cursor() }
+        end),
         [popups.mapping_for("CherryPickPopup")] = popups.open("cherry_pick", function(p)
           p { commits = { self.buffer.ui:get_commit_under_cursor() } }
         end),

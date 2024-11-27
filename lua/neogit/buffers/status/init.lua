@@ -166,6 +166,7 @@ function M:open(kind)
         [mappings["VSplitOpen"]]                = self:_action("n_vertical_split_open"),
         [popups.mapping_for("BisectPopup")]     = self:_action("n_bisect_popup"),
         [popups.mapping_for("BranchPopup")]     = self:_action("n_branch_popup"),
+        [popups.mapping_for("CheckoutPopup")]   = self:_action("n_checkout_popup"),
         [popups.mapping_for("CherryPickPopup")] = self:_action("n_cherry_pick_popup"),
         [popups.mapping_for("CommitPopup")]     = self:_action("n_commit_popup"),
         [popups.mapping_for("DiffPopup")]       = self:_action("n_diff_popup"),

@@ -20,4 +20,7 @@ function M.close_topmost(closable)
   end
 end
 
+function M.open_in_browser(url)
+end
+
 return M

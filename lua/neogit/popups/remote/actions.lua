@@ -3,7 +3,9 @@ local M = {}
 local git = require("neogit.lib.git")
 local input = require("neogit.lib.input")
 local notification = require("neogit.lib.notification")
+local util = require("neogit.lib.util")
 
+local RemoteListBuffer = require("neogit.buffers.remote_view")
 local FuzzyFinderBuffer = require("neogit.buffers.fuzzy_finder")
 local RemoteConfigPopup = require("neogit.popups.remote_config")
 
@@ -87,6 +89,10 @@ function M.remove(_)
   if success then
     notification.info("Removed remote '" .. selected_remote .. "'")
   end
+end
+
+function M.list(_)
+  RemoteListBuffer.new(git.remote.list()):open()
 end
 
 function M.configure(_)

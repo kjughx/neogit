@@ -30,6 +30,7 @@ function M.create()
     :action_if(current ~= nil, "p", git.branch.pushRemote_label(), actions.from_pushremote)
     :action_if(current ~= nil, "u", git.branch.upstream_label(), actions.from_upstream)
     :action("e", "elsewhere", actions.from_elsewhere)
+    :action("r", "review", actions.from_review)
     :new_action_group("Configure")
     :action("C", "Set variables...", actions.configure)
     :env({

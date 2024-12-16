@@ -51,6 +51,11 @@ function M.squash(popup)
   end
 end
 
+function M.review(popup)
+  require("neogit.lib.gerrit").get_reviews()
+end
+
+
 ---@param popup PopupData
 ---@param verb string
 ---@return string[]

@@ -84,4 +84,8 @@ function M.configure()
   require("neogit.popups.branch_config").create()
 end
 
+function M.from_review()
+
+end
+
 return M
